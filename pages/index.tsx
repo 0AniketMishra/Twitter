@@ -7,7 +7,7 @@ import Wigets from '../components/Wigets'
 import React from 'react'
 import { fetchTweets } from '../utils/fetchTweets'
 import { Tweet } from '../typings'
-import toast, { Toaster } from 'react-hot-toast';
+
 
 
 

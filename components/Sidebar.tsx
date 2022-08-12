@@ -4,7 +4,7 @@ import { Tweet } from '../typings'
 import TweetBox from './TweetBox'
 import TweetComponent from '../components/Tweet'
 import { fetchTweets } from '../utils/fetchTweets'
-import toast, { Toaster } from 'react-hot-toast';
+
 import Link from 'next/link'
 interface Props{
   tweets: Tweet[]
@@ -28,13 +28,12 @@ function Sidebar({ tweets: tweetsProp , onClick}: Props) {
   // console.log(tweets)
 
   const handleRefreshh = async () => {
-    const refreshToast = toast.loading("Refreshing...")
+   
     const tweets  = await fetchTweets();
     setTweets(tweets)
-    toast.success("Feed Updated!", {
-      id: refreshToast
+ 
 
-    })
+
   }
   return (
     <div className='' >

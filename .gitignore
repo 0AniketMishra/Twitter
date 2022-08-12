@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-twitter/node_modules
+twitter
 # next.js
 /.next/
 /out/
@@ -36,3 +36,5 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+.vercel

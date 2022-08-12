@@ -11,6 +11,7 @@ import { Tweet } from '../typings'
 
 
 
+
 interface Props{
   tweets: Tweet[]
 }

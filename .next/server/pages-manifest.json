@@ -1,0 +1,9 @@
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/api/addTweet": "pages/api/addTweet.js",
+  "/api/getTweets": "pages/api/getTweets.js",
+  "/api/getComments": "pages/api/getComments.js",
+  "/api/auth/[...nextauth]": "pages/api/auth/[...nextauth].js"
+}

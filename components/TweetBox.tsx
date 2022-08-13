@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react'
 import React, { Dispatch, MouseEvent, useState, useRef, SetStateAction } from 'react'
+import toast from 'react-hot-toast'
 import { Tweet, TweetBody } from '../typings'
 import { fetchTweets } from '../utils/fetchTweets'
 // import { addTweets} from '../pages/api/addTweet'
@@ -56,12 +57,17 @@ const handleSubmit = (
   e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
   ) => {
   e.preventDefault()
+  const tweetToast = toast.loading('Posting Tweet...')
 
   postTweet()
   setInput('')
   setImage('')
   setImageUrlBoxIsOpen(false)
-
+   
+  console.log('WOOHOO we made it', result)
+  toast.success('Tweet Posted Successfully', {
+    id: tweetToast
+  })
 
   }
   
@@ -125,3 +131,7 @@ const handleSubmit = (
 
 
 export default TweetBox
+
+function result(arg0: string, result: any) {
+  throw new Error('Function not implemented.')
+}

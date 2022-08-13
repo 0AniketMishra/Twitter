@@ -3,6 +3,7 @@ import TimeAgo from 'react-timeago'
 import { fetchComments } from '../utils/fetchComments'
 import {useSession, signIn, signOut} from 'next-auth/react'
 import { Comment, CommentBody, Tweet } from '../typings'
+import toast from 'react-hot-toast'
 
 
 interface Props{
@@ -30,9 +31,10 @@ function Tweet({tweet}: Props) {
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    
     e.preventDefault()
 
-    
+    const commentToast = toast.loading('Posting Comment...')
 
     // Comment logic
     const comment: CommentBody = {
@@ -47,7 +49,12 @@ function Tweet({tweet}: Props) {
       method: 'POST',
     })
 
+    
+
     console.log('WOOHOO we made it', result)
+    toast.success('Comment Posted!', {
+      id: commentToast,
+    })
     
 
     setInput('')

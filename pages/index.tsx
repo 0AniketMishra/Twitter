@@ -7,6 +7,7 @@ import Wigets from '../components/Wigets'
 import React from 'react'
 import { fetchTweets } from '../utils/fetchTweets'
 import { Tweet } from '../typings'
+import { Toaster } from 'react-hot-toast'
 
 
 
@@ -18,11 +19,16 @@ interface Props{
 const Home =  ({tweets}: Props) => {
   // console.log(tweets)
   return (
+    
+
     <div>
       <Head>
         <title>Twitter 2.0</title>
       </Head>
-    
+    <Toaster
+  position="top-center"
+  reverseOrder={false}
+/>
       <main className='grid grid-cols-10'>
     
   

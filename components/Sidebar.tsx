@@ -32,8 +32,8 @@ function Sidebar({ tweets: tweetsProp, onClick }: Props) {
     <div>
 
 
-      <header className=' relative '>
-        <div className="relative z-20  bg-white flex mb-10 fixed top-0 left-0 right-0"  >
+      <header className=' relative  '>
+        <div className=" z-20 s bg-white flex mb-10 fixed top-0 left-0 right-0"  >
           <div className="px-6 md:px-12 lg:container lg:mx-auto lg:px-6 lg:py-3">
             <div className="flex items-center ">
               <div className="relative z-20  ">
@@ -105,12 +105,12 @@ function Sidebar({ tweets: tweetsProp, onClick }: Props) {
 
 
                       <li>
-                        <Link href="/blog" >
+                        <Link href="/chats" >
                           <a href="#" className="flex items-center  hover:text-twitter  max-w-fit p-2 rounded-full  hover:bg-gray-100  transition-all duration-200 group relative text-black before:absolute before:inset-x-0 before:bottom-0 before:h-2 before:origin-right before:scale-x-0 before:text-cyan-100 before:transition before:duration-200 hover:before:origin-left hover:before:scale-x-100">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
-                            <h1 className='px-1 cursor-pointer '>Messages</h1>
+                            <h1 className='px-1 cursor-pointer '>Chats</h1>
                           </a>
                         </Link>
 
@@ -126,7 +126,7 @@ function Sidebar({ tweets: tweetsProp, onClick }: Props) {
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                           </svg>
-                          <button onClick={session ? signOut : signIn}>{session ? 'Sign Out' : 'Sign In'}</button>
+                          <button onClick={() => session ? signOut : signIn}>{session ? 'Sign Out' : 'Sign In'}</button>
                         </div>
 
 

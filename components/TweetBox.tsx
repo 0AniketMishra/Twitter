@@ -5,6 +5,9 @@ import toast from 'react-hot-toast'
 import { Tweet, TweetBody } from '../typings'
 import { fetchTweets } from '../utils/fetchTweets'
 // import { addTweets} from '../pages/api/addTweet'
+import { auth, db } from '../firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 
 
@@ -15,7 +18,8 @@ interface Props {
 }
 function TweetBox({setTweets} : Props) {
   
-  const {data: session} = useSession()
+
+  const [user] = useAuthState(auth);
    const [input, setInput] = useState<string>('')
    const [image, setImage] = useState<string>('')
 
@@ -43,8 +47,8 @@ function TweetBox({setTweets} : Props) {
 const postTweet = async () => {
   const tweetInfo: TweetBody = {
     text: input,
-    username:  session?.user?.name || 'Unknown User',
-    profileImg:  session?.user?.image || 'https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1',
+    username:  user.displayName  || 'Unknown User',
+    profileImg: user.photoURL || 'https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1',
     image: image,
   }
            
@@ -94,7 +98,7 @@ const handleSubmit = (
     
     <div className='flex space-x-2 p-5 mr-5  mt-8 border-b-2 border-gray-200' >
      
-        <img className="h-14 w-14 object-cover rounded-full" src={session?.user?.image || 'https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1'} alt="" />
+        <img className="h-14 w-14 object-cover rounded-full" src={ user.photoURL || 'https://th.bing.com/th/id/OIP.puMo9ITfruXP8iQx9cYcqwHaGJ?pid=ImgDet&rs=1'} alt="" />
         <div className='flex flex-1 items-center pl-2'>
             <form action="" className='flex flex-1 flex-col'>
                 <input id='input' value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="What's Happening ?" className='h-12 w-full text-xl outline-none placeholder:text-xl'/>
@@ -119,7 +123,7 @@ const handleSubmit = (
                         </svg>
                 </div>
               
-                <button onClick={handleSubmit} disabled={!input || !session} className=' cursor-pointer bg-twitter px-4 ml-2 mr-4 py-2 font-bold text-white disabled:opacity-50 rounded-full shadow-xl'>Tweet</button>
+                <button onClick={handleSubmit} disabled={!input} className=' cursor-pointer bg-twitter px-4 ml-2 mr-4 py-2 font-bold text-white disabled:opacity-50 rounded-full shadow-xl'>Tweet</button>
                 
                 </div>
 

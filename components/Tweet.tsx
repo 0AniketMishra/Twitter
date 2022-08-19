@@ -5,6 +5,9 @@ import {useSession, signIn, signOut} from 'next-auth/react'
 import { Comment, CommentBody, Tweet } from '../typings'
 import toast from 'react-hot-toast'
 import { Provider, LikeButton } from "@lyket/react";
+import { auth, db } from '../firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 
 
@@ -14,7 +17,8 @@ interface Props{
 
 function Tweet({tweet}: Props) {
 
-  const { data: session } = useSession()
+
+  const [user] = useAuthState(auth);
   const [like, setlike] = useState<boolean>(false)
 
   const [comments, setComments] = useState<Comment[]>([])
@@ -26,7 +30,7 @@ function Tweet({tweet}: Props) {
     const comments: Comment[] = await fetchComments(tweet._id)
      setComments(comments)
   }
-  let user = "@" + tweet.username.replace(/\s+/g, '').toLowerCase()
+  let user2 = "@" + tweet.username.replace(/\s+/g, '').toLowerCase()
 
 
   useEffect(() => {
@@ -46,8 +50,8 @@ function Tweet({tweet}: Props) {
     const comment: CommentBody = {
       comment: input,
       tweetId: tweet._id,
-      username: session?.user?.name || 'Unknown User',
-      profileImg: session?.user?.image || 'https://links.papareact.com/gll',
+      username:  user.displayName || 'Unknown User',
+      profileImg: user.photoURL || 'https://links.papareact.com/gll',
     }
 
     const result = await fetch(`/api/addComment`, {
@@ -78,8 +82,8 @@ function Tweet({tweet}: Props) {
     const comment: CommentBody = {
       comment: user +" : "  +input,
       tweetId: tweet._id,
-      username: session?.user?.name || 'Unknown User',
-      profileImg: session?.user?.image || 'https://links.papareact.com/gll',
+      username:  user.displayName || 'Unknown User',
+      profileImg: user.photoURL || 'https://links.papareact.com/gll',
     }
 
     const result = await fetch(`/api/addComment`, {
@@ -128,7 +132,7 @@ function Tweet({tweet}: Props) {
      </div >
      
      <div className='mt-0 flex' >
-        <div onClick={() => session && setCommentBoxVisible(!commentBoxVisible)} className=' w-12 flex cursor-pointer items-center space-x-3 ml-10 mb-4'> 
+        <div onClick={() =>  setCommentBoxVisible(!commentBoxVisible)} className=' w-12 flex cursor-pointer items-center space-x-3 ml-10 mb-4'> 
           
         <svg   xmlns="http://www.w3.org/2000/svg" className="" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
@@ -136,7 +140,7 @@ function Tweet({tweet}: Props) {
 <h4>{comments.length}</h4>
 
         </div>
-        <div onClick={() => session && setreplyBoxVisible(!replyBoxVisible)}>
+        <div onClick={() =>  setreplyBoxVisible(!replyBoxVisible)}>
         <svg   xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 flex cursor-pointer items-center space-x-3 ml-10 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
 </svg>
@@ -160,7 +164,7 @@ function Tweet({tweet}: Props) {
                 isCounterVisible
               }) => (
                 <>
-                  <button className='flex' onClick={handlePress} disabled={isLoading || !session}>
+                  <button className='flex' onClick={handlePress} disabled={isLoading}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 flex cursor-pointer items-center space-x-3 ml-10 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>

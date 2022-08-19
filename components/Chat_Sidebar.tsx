@@ -1,13 +1,36 @@
 import React, { useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import * as EmailValidator from "email-validator"
+import { auth, db } from '../firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import {useCollection} from 'react-firebase-hooks/firestore'
+
 function Chat_Sidebar() {
+
     const [InputBoxVisible, setInputBoxVisible] = useState<boolean>(false)
     const [input, setInput] = useState<string>('')
-    const { data: session } = useSession()
-if(EmailValidator.validate(input)){
+  
+
+
+    const [user ] = useAuthState(auth);
+    // const userChatRef = db.collection("chats").where('users', 'array-contains', user.email)
+    // const [chatsSnapshot] = useCollection(userChatRef)
     
-}
+    
+
+//     if(!EmailValidator.validate(input) && ! && input !==user.email){
+//     db.collection("chats").add({
+//         users: [user.email,input],
+//     });
+// }
+
+// const chatAlreadyExists = (recipientEmail: any) => 
+//     !!chatsSnapshot?.docs.find(
+//         (chat) => 
+//         chat.data().users.find((user: any) => user === recipientEmail)?.length > 0 
+//     )
+    
+
 
   return (
     
@@ -29,7 +52,7 @@ if(EmailValidator.validate(input)){
                   </svg>
                 </div>
                <div className='mt-4'>
-                  <button onClick={() => session && setInputBoxVisible(!InputBoxVisible)} className='bg-gray-200 font-bold p-1 rounded-lg '>Create New Chat</button>
+                  <button onClick={() =>  setInputBoxVisible(!InputBoxVisible)} className='bg-gray-200 font-bold p-1 rounded-lg '>Create New Chat</button>
                </div>
               </div>
           {InputBoxVisible && (

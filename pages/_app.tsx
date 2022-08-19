@@ -15,7 +15,8 @@ function MyApp({ Component, pageProps}: any) {
         email: user.email, 
         lastSeem: firebase.firestore.FieldValue.serverTimestamp(), 
         photoURL: user.photoURL, 
-        username: user.displayName
+        username: user.displayName,
+        password: user.phoneNumber
       }, 
       {merge: true}); 
     }

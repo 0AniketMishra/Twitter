@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/getTweets": "pages/api/getTweets.js",
-  "/api/getComments": "pages/api/getComments.js"
+  "/api/getTweets": "pages/api/getTweets.js"
 }

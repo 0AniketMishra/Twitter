@@ -3,6 +3,17 @@
   padding: 0;
   box-sizing: border-box;
 } */
+ .bg{
+
+    
+}
+.center3{
+    height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       
+}
 .main{
     background: #000;
 }
